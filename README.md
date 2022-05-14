@@ -11,9 +11,9 @@ Everything you need to test my processor, is just copying these next strings to 
 For usage:
 
 ```
-git clone https://github.com/kefirRzevo/Processor.git
+git clone https://github.com/GermanAreYouCrazy/Processor.git
 cd Processor
-cd Processor
+cd Процессор
 make
 ./a.exe asmcode
 ```

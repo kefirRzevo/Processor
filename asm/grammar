@@ -1,0 +1,22 @@
+    Grammar := {
+        Lab ':' |
+        Cmd | 
+        Cmd "'" Sym "'" |
+        Cmd Label |
+        Cmd Reg |
+        Cmd Num |
+        Cmd '[' E ']'}*
+
+
+    Get E := 
+        T {'+' | '-']T}*
+
+
+    T:= 
+        P {['*' | '/']P}*
+        
+
+    U:= 
+        ['(' Expression ')' |
+        Reg |
+        Num]

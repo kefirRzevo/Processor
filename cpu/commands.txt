@@ -1,0 +1,481 @@
+DEF_CMD(push, 1, 1,
+{
+    if(p_current_command->argument_type == is_number)
+    { 
+        StackPush(&p_cpu->Stack, p_current_command->argument);
+    }
+    else if(p_current_command->argument_type == is_register)
+    {
+        StackPush(&p_cpu->Stack, *(p_cpu->Registers + (size_t)p_current_command->argument));
+    }
+    else if(p_current_command->argument_type == is_ram_register)
+    {
+        StackPush(&p_cpu->Stack, p_cpu->Ram[(size_t)p_cpu->Registers[(size_t)p_current_command->argument ] ]);;
+    }
+    else 
+    {
+        printf("Incorrect argument\n");
+        exit(0x415);
+    }
+})
+
+
+DEF_CMD(pop, 2, 1,
+{
+    if(p_cpu->Stack.size == 0)
+    {
+        printf("Stack is empty\n");
+        exit(0x417);
+    }
+    else if(p_current_command->argument_type == is_register)
+    {
+        StackPop(&p_cpu->Stack, p_cpu->Registers + (size_t)p_current_command->argument);
+    }
+    else if(p_current_command->argument_type == is_ram_register)
+    {
+        StackPop(&p_cpu->Stack, p_cpu->Ram + (size_t)p_cpu->Registers[(size_t)p_current_command->argument ]);
+    }
+    else
+    {
+        printf("Incorrect argument\n");
+        exit(0x415);
+    }
+})
+
+
+DEF_CMD(add, 3, 0,
+{
+    if(p_cpu->Stack.size >= 2)
+    {
+        StackPop (&p_cpu->Stack, p_cpu->DarkRegisters);
+        StackPop (&p_cpu->Stack, p_cpu->DarkRegisters + 1);
+        StackPush(&p_cpu->Stack, p_cpu->DarkRegisters[0] + p_cpu->DarkRegisters[1]);
+    }
+    else
+    {
+        printf("Before sum, stack should be filled\n");
+        exit(0x410);
+    }
+})
+
+
+DEF_CMD(sub, 4, 0,
+{
+    if(p_cpu->Stack.size >= 2)
+    {
+        StackPop (&p_cpu->Stack, p_cpu->DarkRegisters);
+        StackPop (&p_cpu->Stack, p_cpu->DarkRegisters + 1);
+        StackPush(&p_cpu->Stack, p_cpu->DarkRegisters[0] - p_cpu->DarkRegisters[1]);
+    }
+    else
+    {
+        printf("Before sub, stack should be filled\n");
+        exit(0x411);
+    }
+})
+
+
+DEF_CMD(mul, 5, 0,
+{
+    if(p_cpu->Stack.size >= 2)
+    {
+        StackPop (&p_cpu->Stack, p_cpu->DarkRegisters);
+        StackPop (&p_cpu->Stack, p_cpu->DarkRegisters + 1);
+        StackPush(&p_cpu->Stack, p_cpu->DarkRegisters[0] * p_cpu->DarkRegisters[1]);
+    }
+    else
+    {
+        printf("Before mul, stack should be filled\n");
+        exit(0x412);
+    }
+})
+
+
+DEF_CMD(hlt, 6, 0,
+{
+    StackDump(&p_cpu->Stack); 
+    return 0;
+})
+
+
+DEF_CMD(out, 7, 0, 
+{
+    if(p_cpu->Stack.size == 0)
+    {
+        printf("Before out, stack should be filled\n");
+        exit(0x414);
+    }
+    else
+    {
+        StackPop(&p_cpu->Stack, p_cpu->DarkRegisters);
+        printf("%lg\n", p_cpu->DarkRegisters[0]);
+    }
+})
+
+
+DEF_CMD(in, 8, 0,
+{
+    if(scanf("%lg", p_cpu->DarkRegisters))
+    {
+        StackPush(&p_cpu->Stack, p_cpu->DarkRegisters[0]);
+    }
+    else
+    {
+        printf("You didn't entered a double\n");
+        exit(0x415);
+    }
+})
+
+
+DEF_CMD(sqrt, 9, 0, 
+{
+    if(p_cpu->Stack.size == 0)
+    {
+        printf("Stack is empty\n");
+        exit(0x417);
+    }
+    else
+    {
+        StackPop(&p_cpu->Stack, p_cpu->DarkRegisters);
+        StackPush(&p_cpu->Stack, sqrt(p_cpu->DarkRegisters[0]));
+    }
+})
+
+
+DEF_CMD(jmp, 10, 1,
+{
+    if(p_current_command->argument_type == is_label)
+    {
+        p_current_command = p_commands + (size_t)p_current_command->argument;
+        continue;
+    }
+    else if(p_current_command->argument_type != is_label)
+    {
+        printf("Only label is jmp's argument\n");
+        exit(0x413);
+    }
+})
+
+
+DEF_CMD(ja, 11, 1,
+{
+    if(p_current_command->argument_type != is_label)
+    {
+        printf("Only label is ja's argument\n");
+        exit(0x413);
+    }
+    else if(p_cpu->Stack.size < 2)
+    {
+        printf("Stack is empty\n");
+        exit(0x413);
+    }
+    else
+    {
+        StackPop(&p_cpu->Stack, p_cpu->DarkRegisters);
+        StackPop(&p_cpu->Stack, p_cpu->DarkRegisters + 1);
+        if(p_cpu->DarkRegisters[0] > p_cpu->DarkRegisters[1])
+        {
+            p_current_command = p_commands + (size_t)p_current_command->argument;
+            continue;
+        }
+    }
+})
+
+
+DEF_CMD(jae, 12, 1,
+{
+    if(p_current_command->argument_type != is_label)
+    {
+        printf("Only label is jae's argument\n");
+        exit(0x413);
+    }
+    else if(p_cpu->Stack.size < 2)
+    {
+        printf("Stack is empty\n");
+        exit(0x413);
+    }
+    else
+    {
+        StackPop(&p_cpu->Stack, p_cpu->DarkRegisters);
+        StackPop(&p_cpu->Stack, p_cpu->DarkRegisters + 1);
+        if(p_cpu->DarkRegisters[0] >= p_cpu->DarkRegisters[1])
+        {
+            p_current_command = p_commands + (size_t)p_current_command->argument;
+            continue;
+        }
+    }
+})
+
+
+DEF_CMD(jb, 13, 1,
+{
+    if(p_current_command->argument_type != is_label)
+    {
+        printf("Only label is jb's argument\n");
+        exit(0x413);
+    }
+    else if(p_cpu->Stack.size < 2)
+    {
+        printf("Stack is empty\n");
+        exit(0x413);
+    }
+    else
+    {
+        StackPop(&p_cpu->Stack, p_cpu->DarkRegisters);
+        StackPop(&p_cpu->Stack, p_cpu->DarkRegisters + 1);
+        if(p_cpu->DarkRegisters[0] < p_cpu->DarkRegisters[1])
+        {
+            p_current_command = p_commands + (size_t)p_current_command->argument;
+            continue;
+        }
+    }
+})
+
+
+DEF_CMD(jbe, 14, 1,
+{
+    if(p_current_command->argument_type != is_label)
+    {
+        printf("Only label is jbe's argument\n");
+        exit(0x413);
+    }
+    else if(p_cpu->Stack.size < 2)
+    {
+        printf("Stack is empty\n");
+        exit(0x413);
+    }
+    else
+    {
+        StackPop(&p_cpu->Stack, p_cpu->DarkRegisters);
+        StackPop(&p_cpu->Stack, p_cpu->DarkRegisters + 1);
+        if(p_cpu->DarkRegisters[0] <= p_cpu->DarkRegisters[1])
+        {
+            p_current_command = p_commands + (size_t)p_current_command->argument;
+            continue;
+        }
+    }
+})
+
+
+DEF_CMD(je, 15, 1,
+{
+    if(p_current_command->argument_type != is_label)
+    {
+        printf("Only label is je's argument\n");
+        exit(0x413);
+    }
+    else if(p_cpu->Stack.size < 2)
+    {
+        printf("Stack is empty\n");
+        exit(0x413);
+    }
+    else
+    {
+        StackPop(&p_cpu->Stack, p_cpu->DarkRegisters);
+        StackPop(&p_cpu->Stack, p_cpu->DarkRegisters + 1);
+        if(fabs(p_cpu->DarkRegisters[0] - p_cpu->DarkRegisters[1]) < EPSILON)
+        {
+            p_current_command = p_commands + (size_t)p_current_command->argument;
+            continue;
+        }
+    }
+})
+
+
+DEF_CMD(jne, 16, 1,
+{
+    if(p_current_command->argument_type != is_label)
+    {
+        printf("Only label is jne's argument\n");
+        exit(0x413);
+    }
+    else if(p_cpu->Stack.size < 2)
+    {
+        printf("Stack is empty\n");
+        exit(0x413);
+    }
+    else
+    {
+        StackPop(&p_cpu->Stack, p_cpu->DarkRegisters);
+        StackPop(&p_cpu->Stack, p_cpu->DarkRegisters + 1);
+        if(fabs(p_cpu->DarkRegisters[0] - p_cpu->DarkRegisters[1]) > EPSILON)
+        {
+            p_current_command = p_commands + (size_t)p_current_command->argument;
+            continue;
+        }
+    }
+})
+
+
+DEF_CMD(jf, 17, 1,
+{
+    const time_t     seconds = time(nullptr);
+    const tm     *const date = localtime(&seconds);
+
+    if(date->tm_wday == 5)
+    {
+        p_current_command = p_commands + (size_t)p_current_command->argument;
+        continue;
+    }
+    else if(p_current_command->argument_type != is_label)
+    {
+        printf("Only label is jf's argument\n");
+        exit(0x413);
+    }
+})
+
+
+DEF_CMD(multin, 18, 0,
+{
+    size_t i = 0;
+    while(scanf("%lg", p_cpu->DarkRegisters))
+    {
+        StackPush(&p_cpu->Stack, p_cpu->DarkRegisters[0]);
+        i++;
+    }
+    StackPush(&p_cpu->Stack, i);
+})
+
+
+DEF_CMD(pix, 19, 1, 
+{
+    if(p_current_command->argument_type == is_number || p_current_command->argument_type == is_char)
+    {
+        p_cpu->DarkRegisters[2] = p_current_command->argument;
+    }
+    else if(p_current_command->argument_type == is_ram_register)
+    {
+        p_cpu->DarkRegisters[2] = p_cpu->Ram[(size_t)p_cpu->Registers[(size_t)p_current_command->argument] ];
+    }
+    else if(p_current_command->argument_type == is_register)
+    {
+        p_cpu->DarkRegisters[2] = p_cpu->Registers[(size_t)p_current_command->argument];
+    }
+    else if(p_cpu->Stack.size <= 2)
+    {
+        printf("You should put coordinates before\n");
+        exit(0x417);
+    }
+    else
+    {
+        printf("Incorrect argument\n");
+        exit(0x415);
+    }
+
+    StackPop(&p_cpu->Stack, p_cpu->DarkRegisters + 1);    // axis Y
+    StackPop(&p_cpu->Stack, p_cpu->DarkRegisters);        // axis X
+
+    p_cpu->VRam[(size_t)p_cpu->DarkRegisters[0] + (size_t)p_cpu->DarkRegisters[1] * WIDTH] = (char)p_cpu->DarkRegisters[2];
+    //p_cpu->VRam[(size_t)p_cpu->DarkRegisters[0] + 1 + (size_t)p_cpu->DarkRegisters[1] * WIDTH] = (char)p_cpu->DarkRegisters[2];
+    //p_cpu->VRam[(size_t)p_cpu->DarkRegisters[0] - 1 + (size_t)p_cpu->DarkRegisters[1] * WIDTH] = (char)p_cpu->DarkRegisters[2];
+})
+
+
+DEF_CMD(show, 20, 0, 
+{
+    for (size_t i = 0; i < HEIGHT; i++)
+    {
+        for (size_t j = 0; j < WIDTH; j++)
+            if(p_cpu->VRam[j + i * WIDTH] > 0)
+                printf("%c", p_cpu->VRam[j + i * WIDTH]);
+            else 
+                printf(" ");
+
+        printf("\n");
+    }
+})
+
+
+DEF_CMD(call, 21, 1,
+{
+    if(p_current_command->argument_type == is_label)
+    {
+        StackPush(&p_cpu->CallStack, (double) (p_current_command - p_commands + 1) );
+        p_current_command = p_commands + (size_t) p_current_command->argument;
+        StackDump(&p_cpu->CallStack);
+    }
+    else if(p_current_command->argument_type != is_label)
+    {
+        printf("Only label is jmp's argument\n");
+        exit(0x413);
+    }
+    continue;
+})
+
+
+DEF_CMD(ret, 22, 0,
+{
+    if(p_cpu->CallStack.size == 0)
+    {
+        printf("Stack is empty!!!");
+        exit(0x417);
+    }
+
+    StackPop(&p_cpu->CallStack, p_cpu->DarkRegisters);
+    p_current_command = p_commands + (size_t) p_cpu->DarkRegisters[0];
+    continue;
+})
+
+
+DEF_CMD(div, 23, 0,
+{
+    if(p_cpu->Stack.size <= 1)
+    {
+        printf("Before div, stack should be filled\n");
+        exit(0x411);
+    }
+
+    StackPop (&p_cpu->Stack, p_cpu->DarkRegisters);
+    StackPop (&p_cpu->Stack, p_cpu->DarkRegisters + 1);
+
+    if(fabs( *(p_cpu->DarkRegisters + 1) ) < EPSILON)
+    {
+        printf("Denominator is zero\n");
+        exit(0x450);
+    }
+
+    StackPush(&p_cpu->Stack, p_cpu->DarkRegisters[0] / p_cpu->DarkRegisters[1]);
+})
+
+
+DEF_CMD(meow, 24, 1,
+{
+    if(p_current_command->argument_type == is_number)
+        for(int i = 0; i < p_current_command->argument; i++)
+            printf("meow\n");
+    else
+    {
+        printf("Incorrect type of argument\n");
+        exit(0x450);
+    }
+})
+
+
+DEF_CMD(sin, 25, 0, 
+{
+    if(p_cpu->Stack.size == 0)
+    {
+        printf("Stack is empty\n");
+        exit(0x417);
+    }
+    else
+    {
+        StackPop(&p_cpu->Stack, p_cpu->DarkRegisters);
+        StackPush(&p_cpu->Stack, sin(p_cpu->DarkRegisters[0]));
+    }
+})
+
+
+DEF_CMD(cos, 26, 0, 
+{
+    if(p_cpu->Stack.size == 0)
+    {
+        printf("Stack is empty\n");
+        exit(0x417);
+    }
+    else
+    {
+        StackPop(&p_cpu->Stack, p_cpu->DarkRegisters);
+        StackPush(&p_cpu->Stack, cos(p_cpu->DarkRegisters[0]));
+    }
+})
