@@ -1,293 +1,303 @@
 DUMP LOGFILE
-Time: 16:12:29
-Day:  Saturday
+Time: 19:45:16
+Day:  Wednesday
 |===================================================|
 |            |                                      |
 |            |              ARRAY DUMP              |
 |            |                                      |
 |===================================================|
 | Array information:                                |
-| Address:            0x7ff7bc7f2698                |
-| Size:               139                           |
+| Address:            0x7ff7b4e12648                |
+| Size:               144                           |
 | Capacity:           160                           |
-| Data:               0x7f8f31008800                |
+| Data:               0x7fde53008800                |
 | Item size:          24                            |
 |====|==========|==========|========================|
-|1   |LINE: 3   |COMMAND   |VALUE:   in             |
+|1   |LINE: 1   |COMMAND   |VALUE:   push           |
 |====|==========|==========|========================|
-|2   |LINE: 4   |COMMAND   |VALUE:   pop            |
+|2   |LINE: 1   |NUMBER    |VALUE:   0              |
 |====|==========|==========|========================|
-|3   |LINE: 4   |REGISTER  |VALUE:   rax            |
+|3   |LINE: 2   |COMMAND   |VALUE:   pop            |
 |====|==========|==========|========================|
-|4   |LINE: 6   |COMMAND   |VALUE:   in             |
+|4   |LINE: 2   |REGISTER  |VALUE:   rsp            |
 |====|==========|==========|========================|
-|5   |LINE: 7   |COMMAND   |VALUE:   pop            |
+|5   |LINE: 3   |COMMAND   |VALUE:   call           |
 |====|==========|==========|========================|
-|6   |LINE: 7   |REGISTER  |VALUE:   rbx            |
+|6   |LINE: 3   |LABEL     |VALUE:   main           |
 |====|==========|==========|========================|
-|7   |LINE: 9   |COMMAND   |VALUE:   in             |
+|7   |LINE: 4   |COMMAND   |VALUE:   hlt            |
 |====|==========|==========|========================|
-|8   |LINE: 10  |COMMAND   |VALUE:   pop            |
+|8   |LINE: 5   |LABEL     |VALUE:   fucktorial     |
 |====|==========|==========|========================|
-|9   |LINE: 10  |REGISTER  |VALUE:   rcx            |
+|9   |LINE: 5   |KEYWORD   |VALUE:   :              |
 |====|==========|==========|========================|
-|10  |LINE: 13  |COMMAND   |VALUE:   push           |
+|10  |LINE: 6   |COMMAND   |VALUE:   pop            |
 |====|==========|==========|========================|
-|11  |LINE: 13  |REGISTER  |VALUE:   rax            |
+|11  |LINE: 6   |KEYWORD   |VALUE:   [              |
 |====|==========|==========|========================|
-|12  |LINE: 14  |COMMAND   |VALUE:   push           |
+|12  |LINE: 6   |REGISTER  |VALUE:   rsp            |
 |====|==========|==========|========================|
-|13  |LINE: 14  |NUMBER    |VALUE:   0              |
+|13  |LINE: 6   |KEYWORD   |VALUE:   +              |
 |====|==========|==========|========================|
-|14  |LINE: 15  |COMMAND   |VALUE:   je             |
+|14  |LINE: 6   |NUMBER    |VALUE:   0              |
 |====|==========|==========|========================|
-|15  |LINE: 15  |LABEL     |VALUE:   linear         |
+|15  |LINE: 6   |KEYWORD   |VALUE:   ]              |
 |====|==========|==========|========================|
-|16  |LINE: 17  |COMMAND   |VALUE:   push           |
+|16  |LINE: 7   |COMMAND   |VALUE:   push           |
 |====|==========|==========|========================|
-|17  |LINE: 17  |NUMBER    |VALUE:   4              |
+|17  |LINE: 7   |NUMBER    |VALUE:   1              |
 |====|==========|==========|========================|
-|18  |LINE: 18  |COMMAND   |VALUE:   push           |
+|18  |LINE: 8   |COMMAND   |VALUE:   push           |
 |====|==========|==========|========================|
-|19  |LINE: 18  |REGISTER  |VALUE:   rax            |
+|19  |LINE: 8   |KEYWORD   |VALUE:   [              |
 |====|==========|==========|========================|
-|20  |LINE: 19  |COMMAND   |VALUE:   mul            |
+|20  |LINE: 8   |REGISTER  |VALUE:   rsp            |
 |====|==========|==========|========================|
-|21  |LINE: 20  |COMMAND   |VALUE:   push           |
+|21  |LINE: 8   |KEYWORD   |VALUE:   +              |
 |====|==========|==========|========================|
-|22  |LINE: 20  |REGISTER  |VALUE:   rcx            |
+|22  |LINE: 8   |NUMBER    |VALUE:   0              |
 |====|==========|==========|========================|
-|23  |LINE: 21  |COMMAND   |VALUE:   mul            |
+|23  |LINE: 8   |KEYWORD   |VALUE:   ]              |
 |====|==========|==========|========================|
-|24  |LINE: 22  |COMMAND   |VALUE:   push           |
+|24  |LINE: 9   |COMMAND   |VALUE:   equ            |
 |====|==========|==========|========================|
-|25  |LINE: 22  |REGISTER  |VALUE:   rbx            |
+|25  |LINE: 10  |COMMAND   |VALUE:   push           |
 |====|==========|==========|========================|
-|26  |LINE: 23  |COMMAND   |VALUE:   push           |
+|26  |LINE: 10  |NUMBER    |VALUE:   0              |
 |====|==========|==========|========================|
-|27  |LINE: 23  |REGISTER  |VALUE:   rbx            |
+|27  |LINE: 11  |COMMAND   |VALUE:   jne            |
 |====|==========|==========|========================|
-|28  |LINE: 24  |COMMAND   |VALUE:   mul            |
+|28  |LINE: 11  |LABEL     |VALUE:   true_0x6000030b52c0|
 |====|==========|==========|========================|
-|29  |LINE: 25  |COMMAND   |VALUE:   sub            |
+|29  |LINE: 12  |COMMAND   |VALUE:   jmp            |
 |====|==========|==========|========================|
-|30  |LINE: 26  |COMMAND   |VALUE:   pop            |
+|30  |LINE: 12  |LABEL     |VALUE:   continue_0x6000030b52c0|
 |====|==========|==========|========================|
-|31  |LINE: 26  |REGISTER  |VALUE:   rdx            |
+|31  |LINE: 13  |LABEL     |VALUE:   true_0x6000030b52c0|
 |====|==========|==========|========================|
-|32  |LINE: 28  |COMMAND   |VALUE:   push           |
+|32  |LINE: 13  |KEYWORD   |VALUE:   :              |
 |====|==========|==========|========================|
-|33  |LINE: 28  |REGISTER  |VALUE:   rdx            |
+|33  |LINE: 14  |COMMAND   |VALUE:   push           |
 |====|==========|==========|========================|
-|34  |LINE: 29  |COMMAND   |VALUE:   push           |
+|34  |LINE: 14  |NUMBER    |VALUE:   1              |
 |====|==========|==========|========================|
-|35  |LINE: 29  |NUMBER    |VALUE:   0              |
+|35  |LINE: 15  |COMMAND   |VALUE:   pop            |
 |====|==========|==========|========================|
-|36  |LINE: 30  |COMMAND   |VALUE:   je             |
+|36  |LINE: 15  |REGISTER  |VALUE:   rax            |
 |====|==========|==========|========================|
-|37  |LINE: 30  |LABEL     |VALUE:   case_4         |
+|37  |LINE: 16  |COMMAND   |VALUE:   ret            |
 |====|==========|==========|========================|
-|38  |LINE: 32  |COMMAND   |VALUE:   push           |
+|38  |LINE: 17  |LABEL     |VALUE:   continue_0x6000030b52c0|
 |====|==========|==========|========================|
-|39  |LINE: 32  |REGISTER  |VALUE:   rdx            |
+|39  |LINE: 17  |KEYWORD   |VALUE:   :              |
 |====|==========|==========|========================|
-|40  |LINE: 33  |COMMAND   |VALUE:   push           |
+|40  |LINE: 18  |COMMAND   |VALUE:   push           |
 |====|==========|==========|========================|
-|41  |LINE: 33  |NUMBER    |VALUE:   0              |
+|41  |LINE: 18  |NUMBER    |VALUE:   1              |
 |====|==========|==========|========================|
-|42  |LINE: 34  |COMMAND   |VALUE:   ja             |
+|42  |LINE: 19  |COMMAND   |VALUE:   push           |
 |====|==========|==========|========================|
-|43  |LINE: 34  |LABEL     |VALUE:   case_3         |
+|43  |LINE: 19  |KEYWORD   |VALUE:   [              |
 |====|==========|==========|========================|
-|44  |LINE: 36  |COMMAND   |VALUE:   jmp            |
+|44  |LINE: 19  |REGISTER  |VALUE:   rsp            |
 |====|==========|==========|========================|
-|45  |LINE: 36  |LABEL     |VALUE:   case_5         |
+|45  |LINE: 19  |KEYWORD   |VALUE:   +              |
 |====|==========|==========|========================|
-|46  |LINE: 39  |LABEL     |VALUE:   linear         |
+|46  |LINE: 19  |NUMBER    |VALUE:   0              |
 |====|==========|==========|========================|
-|47  |LINE: 39  |KEYWORD   |VALUE:   :              |
+|47  |LINE: 19  |KEYWORD   |VALUE:   ]              |
 |====|==========|==========|========================|
-|48  |LINE: 40  |COMMAND   |VALUE:   push           |
+|48  |LINE: 20  |COMMAND   |VALUE:   sub            |
 |====|==========|==========|========================|
-|49  |LINE: 40  |REGISTER  |VALUE:   rbx            |
+|49  |LINE: 21  |COMMAND   |VALUE:   push           |
 |====|==========|==========|========================|
-|50  |LINE: 41  |COMMAND   |VALUE:   push           |
+|50  |LINE: 21  |REGISTER  |VALUE:   rsp            |
 |====|==========|==========|========================|
-|51  |LINE: 41  |NUMBER    |VALUE:   0              |
+|51  |LINE: 22  |COMMAND   |VALUE:   push           |
 |====|==========|==========|========================|
-|52  |LINE: 42  |COMMAND   |VALUE:   jne            |
+|52  |LINE: 22  |NUMBER    |VALUE:   1              |
 |====|==========|==========|========================|
-|53  |LINE: 42  |LABEL     |VALUE:   case_1         |
+|53  |LINE: 23  |COMMAND   |VALUE:   add            |
 |====|==========|==========|========================|
-|54  |LINE: 45  |COMMAND   |VALUE:   push           |
+|54  |LINE: 24  |COMMAND   |VALUE:   pop            |
 |====|==========|==========|========================|
-|55  |LINE: 45  |REGISTER  |VALUE:   rcx            |
+|55  |LINE: 24  |REGISTER  |VALUE:   rsp            |
 |====|==========|==========|========================|
-|56  |LINE: 46  |COMMAND   |VALUE:   push           |
+|56  |LINE: 25  |COMMAND   |VALUE:   call           |
 |====|==========|==========|========================|
-|57  |LINE: 46  |NUMBER    |VALUE:   0              |
+|57  |LINE: 25  |LABEL     |VALUE:   fucktorial     |
 |====|==========|==========|========================|
-|58  |LINE: 47  |COMMAND   |VALUE:   je             |
+|58  |LINE: 26  |COMMAND   |VALUE:   push           |
 |====|==========|==========|========================|
-|59  |LINE: 47  |LABEL     |VALUE:   case_2         |
+|59  |LINE: 26  |REGISTER  |VALUE:   rax            |
 |====|==========|==========|========================|
-|60  |LINE: 49  |COMMAND   |VALUE:   jmp            |
+|60  |LINE: 27  |COMMAND   |VALUE:   push           |
 |====|==========|==========|========================|
-|61  |LINE: 49  |LABEL     |VALUE:   case_3         |
+|61  |LINE: 27  |NUMBER    |VALUE:   1              |
 |====|==========|==========|========================|
-|62  |LINE: 52  |LABEL     |VALUE:   case_1         |
+|62  |LINE: 28  |COMMAND   |VALUE:   push           |
 |====|==========|==========|========================|
-|63  |LINE: 52  |KEYWORD   |VALUE:   :              |
+|63  |LINE: 28  |REGISTER  |VALUE:   rsp            |
 |====|==========|==========|========================|
-|64  |LINE: 53  |COMMAND   |VALUE:   push           |
+|64  |LINE: 29  |COMMAND   |VALUE:   sub            |
 |====|==========|==========|========================|
-|65  |LINE: 53  |REGISTER  |VALUE:   rbx            |
+|65  |LINE: 30  |COMMAND   |VALUE:   pop            |
 |====|==========|==========|========================|
-|66  |LINE: 54  |COMMAND   |VALUE:   push           |
+|66  |LINE: 30  |REGISTER  |VALUE:   rsp            |
 |====|==========|==========|========================|
-|67  |LINE: 54  |REGISTER  |VALUE:   rcx            |
+|67  |LINE: 31  |COMMAND   |VALUE:   push           |
 |====|==========|==========|========================|
-|68  |LINE: 55  |COMMAND   |VALUE:   div            |
+|68  |LINE: 31  |KEYWORD   |VALUE:   [              |
 |====|==========|==========|========================|
-|69  |LINE: 56  |COMMAND   |VALUE:   push           |
+|69  |LINE: 31  |REGISTER  |VALUE:   rsp            |
 |====|==========|==========|========================|
-|70  |LINE: 56  |NUMBER    |VALUE:   1              |
+|70  |LINE: 31  |KEYWORD   |VALUE:   +              |
 |====|==========|==========|========================|
-|71  |LINE: 57  |COMMAND   |VALUE:   out            |
+|71  |LINE: 31  |NUMBER    |VALUE:   0              |
 |====|==========|==========|========================|
-|72  |LINE: 58  |COMMAND   |VALUE:   out            |
+|72  |LINE: 31  |KEYWORD   |VALUE:   ]              |
 |====|==========|==========|========================|
-|73  |LINE: 59  |COMMAND   |VALUE:   hlt            |
+|73  |LINE: 32  |COMMAND   |VALUE:   mul            |
 |====|==========|==========|========================|
-|74  |LINE: 61  |LABEL     |VALUE:   case_2         |
+|74  |LINE: 33  |COMMAND   |VALUE:   pop            |
 |====|==========|==========|========================|
-|75  |LINE: 61  |KEYWORD   |VALUE:   :              |
+|75  |LINE: 33  |REGISTER  |VALUE:   rax            |
 |====|==========|==========|========================|
-|76  |LINE: 62  |COMMAND   |VALUE:   push           |
+|76  |LINE: 34  |COMMAND   |VALUE:   ret            |
 |====|==========|==========|========================|
-|77  |LINE: 62  |NUMBER    |VALUE:   -1             |
+|77  |LINE: 35  |COMMAND   |VALUE:   ret            |
 |====|==========|==========|========================|
-|78  |LINE: 63  |COMMAND   |VALUE:   out            |
+|78  |LINE: 36  |LABEL     |VALUE:   main           |
 |====|==========|==========|========================|
-|79  |LINE: 64  |COMMAND   |VALUE:   hlt            |
+|79  |LINE: 36  |KEYWORD   |VALUE:   :              |
 |====|==========|==========|========================|
-|80  |LINE: 66  |LABEL     |VALUE:   case_3         |
+|80  |LINE: 37  |COMMAND   |VALUE:   push           |
 |====|==========|==========|========================|
-|81  |LINE: 66  |KEYWORD   |VALUE:   :              |
+|81  |LINE: 37  |NUMBER    |VALUE:   6              |
 |====|==========|==========|========================|
-|82  |LINE: 67  |COMMAND   |VALUE:   push           |
+|82  |LINE: 38  |COMMAND   |VALUE:   push           |
 |====|==========|==========|========================|
-|83  |LINE: 67  |NUMBER    |VALUE:   -2             |
+|83  |LINE: 38  |NUMBER    |VALUE:   2              |
 |====|==========|==========|========================|
-|84  |LINE: 68  |COMMAND   |VALUE:   out            |
+|84  |LINE: 39  |COMMAND   |VALUE:   pop            |
 |====|==========|==========|========================|
-|85  |LINE: 69  |COMMAND   |VALUE:   hlt            |
+|85  |LINE: 39  |REGISTER  |VALUE:   rsi            |
 |====|==========|==========|========================|
-|86  |LINE: 71  |LABEL     |VALUE:   case_4         |
+|86  |LINE: 40  |COMMAND   |VALUE:   pop            |
 |====|==========|==========|========================|
-|87  |LINE: 71  |KEYWORD   |VALUE:   :              |
+|87  |LINE: 40  |KEYWORD   |VALUE:   [              |
 |====|==========|==========|========================|
-|88  |LINE: 72  |COMMAND   |VALUE:   push           |
+|88  |LINE: 40  |REGISTER  |VALUE:   rsp            |
 |====|==========|==========|========================|
-|89  |LINE: 72  |REGISTER  |VALUE:   rax            |
+|89  |LINE: 40  |KEYWORD   |VALUE:   +              |
 |====|==========|==========|========================|
-|90  |LINE: 73  |COMMAND   |VALUE:   push           |
+|90  |LINE: 40  |NUMBER    |VALUE:   0              |
 |====|==========|==========|========================|
-|91  |LINE: 73  |REGISTER  |VALUE:   rbx            |
+|91  |LINE: 40  |KEYWORD   |VALUE:   +              |
 |====|==========|==========|========================|
-|92  |LINE: 74  |COMMAND   |VALUE:   div            |
+|92  |LINE: 40  |REGISTER  |VALUE:   rsi            |
 |====|==========|==========|========================|
-|93  |LINE: 75  |COMMAND   |VALUE:   push           |
+|93  |LINE: 40  |KEYWORD   |VALUE:   ]              |
 |====|==========|==========|========================|
-|94  |LINE: 75  |NUMBER    |VALUE:   -0.5           |
+|94  |LINE: 41  |COMMAND   |VALUE:   push           |
 |====|==========|==========|========================|
-|95  |LINE: 76  |COMMAND   |VALUE:   mul            |
+|95  |LINE: 41  |NUMBER    |VALUE:   4              |
 |====|==========|==========|========================|
-|96  |LINE: 77  |COMMAND   |VALUE:   push           |
+|96  |LINE: 42  |COMMAND   |VALUE:   push           |
 |====|==========|==========|========================|
-|97  |LINE: 77  |NUMBER    |VALUE:   1              |
+|97  |LINE: 42  |NUMBER    |VALUE:   1              |
 |====|==========|==========|========================|
-|98  |LINE: 78  |COMMAND   |VALUE:   out            |
+|98  |LINE: 43  |COMMAND   |VALUE:   pop            |
 |====|==========|==========|========================|
-|99  |LINE: 79  |COMMAND   |VALUE:   out            |
+|99  |LINE: 43  |REGISTER  |VALUE:   rsi            |
 |====|==========|==========|========================|
-|100 |LINE: 80  |COMMAND   |VALUE:   hlt            |
+|100 |LINE: 44  |COMMAND   |VALUE:   pop            |
 |====|==========|==========|========================|
-|101 |LINE: 82  |LABEL     |VALUE:   case_5         |
+|101 |LINE: 44  |KEYWORD   |VALUE:   [              |
 |====|==========|==========|========================|
-|102 |LINE: 82  |KEYWORD   |VALUE:   :              |
+|102 |LINE: 44  |REGISTER  |VALUE:   rsp            |
 |====|==========|==========|========================|
-|103 |LINE: 83  |COMMAND   |VALUE:   push           |
+|103 |LINE: 44  |KEYWORD   |VALUE:   +              |
 |====|==========|==========|========================|
-|104 |LINE: 83  |NUMBER    |VALUE:   2              |
+|104 |LINE: 44  |NUMBER    |VALUE:   0              |
 |====|==========|==========|========================|
-|105 |LINE: 84  |COMMAND   |VALUE:   out            |
+|105 |LINE: 44  |KEYWORD   |VALUE:   +              |
 |====|==========|==========|========================|
-|106 |LINE: 86  |COMMAND   |VALUE:   push           |
+|106 |LINE: 44  |REGISTER  |VALUE:   rsi            |
 |====|==========|==========|========================|
-|107 |LINE: 86  |NUMBER    |VALUE:   2              |
+|107 |LINE: 44  |KEYWORD   |VALUE:   ]              |
 |====|==========|==========|========================|
-|108 |LINE: 87  |COMMAND   |VALUE:   push           |
+|108 |LINE: 45  |COMMAND   |VALUE:   push           |
 |====|==========|==========|========================|
-|109 |LINE: 87  |REGISTER  |VALUE:   rax            |
+|109 |LINE: 45  |NUMBER    |VALUE:   1              |
 |====|==========|==========|========================|
-|110 |LINE: 88  |COMMAND   |VALUE:   mul            |
+|110 |LINE: 46  |COMMAND   |VALUE:   push           |
 |====|==========|==========|========================|
-|111 |LINE: 90  |COMMAND   |VALUE:   push           |
+|111 |LINE: 46  |NUMBER    |VALUE:   0              |
 |====|==========|==========|========================|
-|112 |LINE: 90  |REGISTER  |VALUE:   rbx            |
+|112 |LINE: 47  |COMMAND   |VALUE:   pop            |
 |====|==========|==========|========================|
-|113 |LINE: 91  |COMMAND   |VALUE:   push           |
+|113 |LINE: 47  |REGISTER  |VALUE:   rsi            |
 |====|==========|==========|========================|
-|114 |LINE: 91  |NUMBER    |VALUE:   -1             |
+|114 |LINE: 48  |COMMAND   |VALUE:   pop            |
 |====|==========|==========|========================|
-|115 |LINE: 92  |COMMAND   |VALUE:   mul            |
+|115 |LINE: 48  |KEYWORD   |VALUE:   [              |
 |====|==========|==========|========================|
-|116 |LINE: 93  |COMMAND   |VALUE:   push           |
+|116 |LINE: 48  |REGISTER  |VALUE:   rsp            |
 |====|==========|==========|========================|
-|117 |LINE: 93  |REGISTER  |VALUE:   rdx            |
+|117 |LINE: 48  |KEYWORD   |VALUE:   +              |
 |====|==========|==========|========================|
-|118 |LINE: 94  |COMMAND   |VALUE:   sqrt           |
+|118 |LINE: 48  |NUMBER    |VALUE:   0              |
 |====|==========|==========|========================|
-|119 |LINE: 95  |COMMAND   |VALUE:   add            |
+|119 |LINE: 48  |KEYWORD   |VALUE:   +              |
 |====|==========|==========|========================|
-|120 |LINE: 97  |COMMAND   |VALUE:   div            |
+|120 |LINE: 48  |REGISTER  |VALUE:   rsi            |
 |====|==========|==========|========================|
-|121 |LINE: 98  |COMMAND   |VALUE:   out            |
+|121 |LINE: 48  |KEYWORD   |VALUE:   ]              |
 |====|==========|==========|========================|
-|122 |LINE: 101 |COMMAND   |VALUE:   push           |
+|122 |LINE: 49  |COMMAND   |VALUE:   push           |
 |====|==========|==========|========================|
-|123 |LINE: 101 |NUMBER    |VALUE:   2              |
+|123 |LINE: 49  |NUMBER    |VALUE:   5              |
 |====|==========|==========|========================|
-|124 |LINE: 102 |COMMAND   |VALUE:   push           |
+|124 |LINE: 50  |COMMAND   |VALUE:   push           |
 |====|==========|==========|========================|
-|125 |LINE: 102 |REGISTER  |VALUE:   rax            |
+|125 |LINE: 50  |REGISTER  |VALUE:   rsp            |
 |====|==========|==========|========================|
-|126 |LINE: 103 |COMMAND   |VALUE:   mul            |
+|126 |LINE: 51  |COMMAND   |VALUE:   push           |
 |====|==========|==========|========================|
-|127 |LINE: 105 |COMMAND   |VALUE:   push           |
+|127 |LINE: 51  |NUMBER    |VALUE:   3              |
 |====|==========|==========|========================|
-|128 |LINE: 105 |REGISTER  |VALUE:   rdx            |
+|128 |LINE: 52  |COMMAND   |VALUE:   add            |
 |====|==========|==========|========================|
-|129 |LINE: 106 |COMMAND   |VALUE:   sqrt           |
+|129 |LINE: 53  |COMMAND   |VALUE:   pop            |
 |====|==========|==========|========================|
-|130 |LINE: 107 |COMMAND   |VALUE:   push           |
+|130 |LINE: 53  |REGISTER  |VALUE:   rsp            |
 |====|==========|==========|========================|
-|131 |LINE: 107 |REGISTER  |VALUE:   rbx            |
+|131 |LINE: 54  |COMMAND   |VALUE:   call           |
 |====|==========|==========|========================|
-|132 |LINE: 108 |COMMAND   |VALUE:   push           |
+|132 |LINE: 54  |LABEL     |VALUE:   fucktorial     |
 |====|==========|==========|========================|
-|133 |LINE: 108 |NUMBER    |VALUE:   -1             |
+|133 |LINE: 55  |COMMAND   |VALUE:   push           |
 |====|==========|==========|========================|
-|134 |LINE: 109 |COMMAND   |VALUE:   mul            |
+|134 |LINE: 55  |REGISTER  |VALUE:   rax            |
 |====|==========|==========|========================|
-|135 |LINE: 110 |COMMAND   |VALUE:   sub            |
+|135 |LINE: 56  |COMMAND   |VALUE:   push           |
 |====|==========|==========|========================|
-|136 |LINE: 112 |COMMAND   |VALUE:   div            |
+|136 |LINE: 56  |NUMBER    |VALUE:   3              |
 |====|==========|==========|========================|
-|137 |LINE: 113 |COMMAND   |VALUE:   out            |
+|137 |LINE: 57  |COMMAND   |VALUE:   push           |
 |====|==========|==========|========================|
-|138 |LINE: 114 |COMMAND   |VALUE:   hlt            |
+|138 |LINE: 57  |REGISTER  |VALUE:   rsp            |
 |====|==========|==========|========================|
-|139 |LINE: 114 |KEYWORD   |VALUE:   $              |
+|139 |LINE: 58  |COMMAND   |VALUE:   sub            |
+|====|==========|==========|========================|
+|140 |LINE: 59  |COMMAND   |VALUE:   pop            |
+|====|==========|==========|========================|
+|141 |LINE: 59  |REGISTER  |VALUE:   rsp            |
+|====|==========|==========|========================|
+|142 |LINE: 60  |COMMAND   |VALUE:   out            |
+|====|==========|==========|========================|
+|143 |LINE: 61  |COMMAND   |VALUE:   ret            |
+|====|==========|==========|========================|
+|144 |LINE: 62  |KEYWORD   |VALUE:   $              |
 |====|==========|==========|========================|

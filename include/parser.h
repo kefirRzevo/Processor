@@ -4,7 +4,7 @@
 
 #include "lexer.h"
 
-const size_t INIT_N_CMDS = 100;
+const size_t INIT_N_CMDS = 10;
 const double EPSILON     = 0.000001;
 
 enum type_of_argument

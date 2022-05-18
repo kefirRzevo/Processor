@@ -9,11 +9,11 @@
 #define $$ fprintf(stderr, "%d\t%zu\n", __LINE__, iterator);
 
 static size_t iterator  = 0;
-static size_t   n_cmds  = 0;
 static array    labels  = {};
 static Command*   cmds  = nullptr;
+static size_t   n_cmds  = 0;
 static token* p_tokens  = nullptr;
-static size_t cmds_size = INIT_N_CMDS;
+static size_t cmds_size = INIT_N_CMDS*10;
 
 static bool GetG();
 static bool GetE();
@@ -23,8 +23,8 @@ static bool GetU();
 
 static char*  is_lab    (size_t position);
 static bool   is_num    (size_t position);
-static char   is_reg    (size_t position);
-static char   is_command(size_t position);
+static bool   is_reg    (size_t position);
+static bool   is_command(size_t position);
 static char   is_ch     (size_t position);
 static char   is_keyword(size_t position, char name);
 
@@ -123,14 +123,19 @@ static bool print_error(const char* waited)
 
 static int add_cmd(char key, type_of_argument type, double argument)
 {
-    if(n_cmds == cmds_size)
+    /*if(n_cmds == cmds_size)
     {
+        commands_dump("logfiles/cmds_dump1.txt");
         cmds_size         = cmds_size * 2;
-        Command* new_cmds = (Command* )realloc(cmds, cmds_size);
+        //Command* new_cmds = (Command* )realloc(cmds, cmds_size);
+        Command* new_cmds = (Command* )calloc(cmds_size, sizeof(Command));
+        memcpy(new_cmds, cmds, cmds_size);
+        cmds = new_cmds;
         if(!new_cmds)
             return 0;
-        cmds              = new_cmds;
-    }
+        cmds = new_cmds;
+        commands_dump("logfiles/cmds_dump2.txt");
+    }*/
 
      #define DEF_CMD(name, cmd, num_arg, code)                                                      \
                     else if (cmd == key && num_arg == 0 && type != is_nothing)                      \
@@ -161,23 +166,17 @@ static char* is_lab(size_t position)
 
 static bool is_num(size_t position)
 {
-    if(p_tokens[position].type == NUM)
-        return true;
-    return false;
+    return (p_tokens[position].type == NUM);
 }
 
-static char is_reg(size_t position)
+static bool is_reg(size_t position)
 {
-    if(p_tokens[position].type == REG)
-        return p_tokens[position].value.reg;
-    return 0;
+    return (p_tokens[position].type == REG);
 }
 
-static char is_command(size_t position)
+static bool is_command(size_t position)
 {
-    if(p_tokens[position].type == CMD)
-        return p_tokens[position].value.command;
-    return 0;
+    return p_tokens[position].type == CMD;
 }
 
 static char is_ch(size_t position)
@@ -216,13 +215,13 @@ static bool GetG()
                 is_command(iterator) && is_lab(iterator + 1)     && is_keyword(iterator + 2, ':') ||
                 is_command(iterator) && is_keyword(iterator + 1, '$'))
         {
-           add_cmd(is_command(iterator), is_nothing, 0);
+           add_cmd(p_tokens[iterator].value.command, is_nothing, 0);
            iterator++;
         }
         else if(is_command(iterator)  && is_keyword(iterator + 1, '\'')
              && is_ch(iterator + 2) && is_keyword(iterator + 3, '\''))
         {
-            add_cmd(is_command(iterator), is_char, is_ch(iterator + 2));
+            add_cmd(p_tokens[iterator].value.command, is_char, is_ch(iterator + 2));
             iterator+=4;
         }
         else if(is_command(iterator) && is_lab(iterator + 1) && !is_keyword(iterator + 2, ':'))
@@ -235,22 +234,22 @@ static bool GetG()
             if(!array_push(&labels, &temp))
                 return false;
 
-            add_cmd(is_command(iterator), is_label, -2);
+            add_cmd(p_tokens[iterator].value.command, is_label, -2);
             iterator+=2;
         }
         else if(is_command(iterator) && is_reg(iterator + 1))
         {
-            add_cmd(is_command(iterator), is_register, is_reg(iterator + 1));
+            add_cmd(p_tokens[iterator].value.command, is_register, p_tokens[iterator + 1].value.reg);
             iterator+=2;
         }
         else if(is_command(iterator) && is_num(iterator + 1))
         {
-            add_cmd(is_command(iterator), is_number, p_tokens[iterator + 1].value.number);
+            add_cmd(p_tokens[iterator].value.command, is_number, p_tokens[iterator + 1].value.number);
             iterator+=2;
         }
         else if(is_command(iterator) && is_keyword(iterator + 1, '['))
         {
-            char command_key = is_command(iterator);
+            char command_key = p_tokens[iterator].value.command;
             iterator+=2;
 
             if(!GetE())
@@ -261,6 +260,7 @@ static bool GetG()
 
             add_cmd(get_cmd_num("pop"), is_register,     get_reg_num("drk"));
             add_cmd(command_key,        is_ram_register, get_reg_num("drk"));
+            
             iterator++;
         }
         else
@@ -312,7 +312,7 @@ static bool GetT()
         if(is_keyword(iterator, '*'))
         {
             iterator++;
-           if(!GetU())
+            if(!GetU())
                 return false;
 
             add_cmd(get_cmd_num("mul"), is_nothing, 0);
@@ -333,12 +333,12 @@ static bool GetU()
 {
     if(is_reg(iterator))
     {
-        add_cmd(get_cmd_num("push"), is_register, is_reg(iterator));
+        add_cmd(get_cmd_num("push"), is_register, p_tokens[iterator].value.reg);
         iterator++;
     }
-    else if (is_num(iterator))
+    else if(is_num(iterator))
     {
-        add_cmd(get_cmd_num("push"), is_number, p_tokens[iterator + 1].value.number);
+        add_cmd(get_cmd_num("push"), is_number, p_tokens[iterator].value.number);
         iterator++;
     }
     else if(is_keyword(iterator, '('))
@@ -497,9 +497,9 @@ static int commands_dump(const char* dump_file_path)
     "ASSEMBLER LOGFILE\n"
     "Time: %02d:%02d:%02d\n"
     "Day:  %s\n"
-    "============================================================\n"
-    "|    |Type of argument:   |Command                         |\n"
-    "============================================================\n",
+    "====================================================================\n"
+    "|    |Type of argument:   |Command                                 |\n"
+    "====================================================================\n",
     date->tm_hour, date->tm_min, date->tm_sec, day);
     
     for (size_t i = 0; i < n_cmds; i++)
@@ -508,27 +508,29 @@ static int commands_dump(const char* dump_file_path)
         switch(cmds[i].argument_type)
         {
             case is_register:
-                fprintf(logfile, "REGISTER            |    %-6s%-22s|\n", get_cmd_string(cmds[i].key), get_reg_string((char)cmds[i].argument));
+                fprintf(logfile, "REGISTER            |    %-6s%-30s|\n", get_cmd_string(cmds[i].key), get_reg_string((char)cmds[i].argument));
                 break;
             case is_number:
-                fprintf(logfile, "NUMBER              |    %-6s%-22lg|\n", get_cmd_string(cmds[i].key), cmds[i].argument);
+                fprintf(logfile, "NUMBER              |    %-6s%-30lg|\n", get_cmd_string(cmds[i].key), cmds[i].argument);
                 break;
             case is_ram_register:
-                fprintf(logfile, "RAM                 |    %-5s[%-4s]                 |\n", get_cmd_string(cmds[i].key), get_reg_string((char)cmds[i].argument));
+                fprintf(logfile, "RAM                 |    %-5s[%-4s]                         |\n", get_cmd_string(cmds[i].key), get_reg_string((char)cmds[i].argument));
                 break;
             case is_char:
-                fprintf(logfile, "CHAR                |    %-6s%-22c|\n", get_cmd_string(cmds[i].key), (char)cmds[i].argument);
+                fprintf(logfile, "CHAR                |    %-6s%-30c|\n", get_cmd_string(cmds[i].key), (char)cmds[i].argument);
                 break;
             case is_nothing:
-                fprintf(logfile, "NOTHING             |    %-28s|\n", get_cmd_string(cmds[i].key));
+                fprintf(logfile, "NOTHING             |    %-36s|\n", get_cmd_string(cmds[i].key));
                 break;
             case is_label:
-                fprintf(logfile, "LABEL               |    %-6s%-22d|\n", get_cmd_string(cmds[i].key), (int)cmds[i].argument);
+                fprintf(logfile, "LABEL               |    %-6s%-30d|\n", get_cmd_string(cmds[i].key), (int)cmds[i].argument);
                 break;
             default:
+                fprintf(stderr, "%zu|%lg|%d|%d\n", i, cmds[i].argument, cmds[i].argument_type, cmds[i].key);
+                assert(0);
                 break;
         }
-        fprintf(logfile, "============================================================\n");
+        fprintf(logfile, "====================================================================\n");
     }
 
     fclose(logfile);  

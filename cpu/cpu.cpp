@@ -61,7 +61,7 @@ static int run_commands(FILE** logfile, CPU* const p_cpu, Command *const p_comma
 
             default:
             {
-                fprintf(stderr, "Something went wrong!.\n");
+                fprintf(stderr, "Something went wrong!\n");
                 return 0;
             }
         }
@@ -157,7 +157,7 @@ static const char* get_cmd_string(char type)
 {
     #define DEF_CMD(name, cmd, num_arg, code)   \
                         else if (cmd == type)   \
-                        return #name;                      
+                            return #name;                      
 
                     if (0) {} 
     #include "../cpu/commands.txt"
@@ -170,7 +170,7 @@ static const char* get_reg_string(char type)
 {
     #define DEF_REG(name, reg)  \
         else if (reg == type)   \
-        return #name;                      
+            return #name;                      
 
                     if (0) {} 
     #include "../cpu/registers.txt"
@@ -210,23 +210,25 @@ static int logfile_print(FILE** logfile, CPU* const p_cpu, const Command *const 
         default:
             return 0;
     }
+
     fprintf(*logfile, "%-12zu|", p_cpu->Stack.size);
 
-    for(size_t i = 0 ; i < p_cpu->Stack.size; i++)
-        fprintf(*logfile, "%-6.3lg", p_cpu->Stack.data[i]);
-
+    if(p_cpu->Stack.size < 16)
+        for(size_t i = 0 ; i < p_cpu->Stack.size; i++)
+            fprintf(*logfile, "%-6.3lg", p_cpu->Stack.data[i]);
+    else
+        for(size_t i = 0 ; i < 16; i++)
+            fprintf(*logfile, "%-6.3lg", p_cpu->Stack.data[i]);
 
     fprintf(*logfile, "\n|            |                |            |            |");
 
-    for(char i = 1; i <= REGISTERS_NUMBER; i++)
+    for(char i = 0; i < REGISTERS_NUMBER; i++)
         fprintf(*logfile, "%-6s", get_reg_string(i)); 
 
     fprintf(*logfile, "\n|            |                |            |            |");
 
     for(size_t i = 0; i < REGISTERS_NUMBER; i++)
         fprintf(*logfile, "%-6.3lg", *(p_cpu->Registers + i)); 
-    
-    
                                            
     fprintf(*logfile, "\n----------------------------------------------------------------------------------------------------------------------------------------------------------\n");                                             
     return 1;

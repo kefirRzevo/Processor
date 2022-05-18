@@ -30,8 +30,8 @@ CXX=g++
 
 make:
 	$(CXX) $(CXXFLAGS) -c  main.cpp asm/lexer.cpp asm/parser.cpp cpu/cpu.cpp res/array.cpp res/stack.cpp
-	$(CXX) $(CXXFLAGS) -o  a.exe main.o lexer.o parser.o cpu.o array.o stack.o 
+	$(CXX) $(CXXFLAGS) -o  app main.o lexer.o parser.o cpu.o array.o stack.o 
 	rm *.o
 
 clean:
-	rm *.o a.exe
+	rm *.o app logfiles/* 

@@ -11,7 +11,7 @@ int main()
     create_binfile("binary", tokens);
     processor("binary");
 
-    //array_dtor(&idents_arr, 1);
-    //array_dtor(&tokens_arr, 0);
+    array_dtor(&idents_arr, 1);
+    array_dtor(&tokens_arr, 0);
     return 0;
 }
