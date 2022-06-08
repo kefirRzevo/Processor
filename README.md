@@ -2,19 +2,18 @@
 
 ## Introduction
 
-This is a repository for my processor. 
+This is my virtual processor. 
 
 ## How to use
 
-Everything you need to test my processor, is just copying these next strings to your terminal/console.
-You can view examples in directory examples.
+You can write code using commands (in file "commands.h") in file "asmcode" and then run it using ./app. Parser was written using recursive descent. There are some dumps in "logfiles" directory. You can view examples in directory "examples".
 
 For usage:
 
 ```
-git clone https://github.com/GermanAreYouCrazy/Processor.git
+git clone https://github.com/kefirRzevo/Processor.git
 cd Processor
 make
-./a.exe
+./app
 ```
 
